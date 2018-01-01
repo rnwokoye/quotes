@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/quotes/css/style.css' %}">   
+</head>
+<body>
+	<div class=wrapper>
+		<a href="/logout">Logout</a>
+		<h2>Hello,  {{ user.name }} !</h2>
+		<div class=quotes>
+			<h4>Quotable Quotes</h4>
+				{% for quote in quotable_quotes %}
+				<ul style='list-style-type:none'>
+					<li>{{ quote.content }} <br> 
+						Posted By:<a href="/user/{{quote.posted_by.id}}">{{ quote.posted_by.name }}</a> <br>
+						Quotor:{{quote.quoted_by}}<br>
+						<a href="/add_favs/{{ quote.id }}">Add to Favs</a>	
+					</li><br><br>
+				</ul>
+					{% endfor %}
+		</div>
+
+		<div class=quotes>				
+			<h4> Favorite Quotes </h4>
+				{% for Quote in Favs %}
+				<ul style='list-style-type:none'>
+					<li><strong>{{ Quote.quoted_by }}</strong> {{ Quote.content }}<br>
+					<a href="/remove_fav/{{ Quote.id }}"> Remove from Favs</a><br>
+					</li>
+				</ul>
+					{% endfor %}
+				
+		</div>
+
+		<form action="/all_quotes" method="post">
+			<p>Contribute a quote</p>
+			{% csrf_token %}
+			Quoted By: <input type="text" name="quoted_by"><br><br>
+			Message: <textarea name="content" placeholder="message..."></textarea><br>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+	<title>Users</title>
+	<link rel="stylesheet" type="text/css" href="{% static '/quotes/css/style.css' %}"> 
+</head>
+<body>
+	<div class=wrapper>
+		<a href="/logout">Logout</a>  <a href="/quotes">Home</a>
+		<h2>My Posts</h2>
+
+		<p>Posts by {{ user.name }}</p>
+		<p> count: {{ count }}</p>
+<hr>
+		{% for quote in my_quotes %}
+
+			<li><strong><span style="color:blue">{{ quote.quoted_by }}</span></strong>: {{ quote.content }}</li>
+
+		{% endfor %}
+	</div>
+</body>
+</html>
